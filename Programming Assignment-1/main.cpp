@@ -13,23 +13,6 @@
 
 int minimumPathLength = MAXIMUM;
 
-void printMatrixArray(int **matrix, int rows_cols){
-    std::cout<<"Matrix:"<<std::endl;
-    for (int i = 0; i < rows_cols; i++){
-        for (int j = 0; j < rows_cols; j++)
-            std::cout << matrix[i][j] << " ";
-        std::cout<<std::endl;
-    }
-}
-
-void printArray(int *oneDArr, int size){
-    std::cout<<"****combinations****"<<std::endl;
-    for(int i=0; i<size; i++){
-        std::cout<<oneDArr[i]<<" ";
-    }
-    std::cout<<std::endl;
-}
-
 int **initMatrix(int rows_cols){
     int **matrix = new int*[rows_cols];
     for (int i = 0; i < rows_cols; i++) {
@@ -50,7 +33,6 @@ void traverseNumbers(int *numberArray, int sizeArray, int n, int **matrix){
         }
         pathweight = pathweight + matrix[root][ROOTNODE];
         minimumPathLength = std::min(pathweight, minimumPathLength);
-        //printArray(numberArray,n);
     }
 
     for(int i=0;i<sizeArray; i++){
@@ -81,7 +63,6 @@ int main(int argc, char* argv[]) {
             for(int i=0; i<noOfVertices-1; i++){
                 numbersLine[i] = ++k;
             }
-            //printArray(numbersLine,noOfVertices-1);
             int** matrix = initMatrix(noOfVertices);
 
             for(int data = 0; data<noOfEdges; data++){
@@ -90,9 +71,8 @@ int main(int argc, char* argv[]) {
                 matrix[startNode] [endNode] = edgeWeight;
                 matrix[endNode] [startNode] = edgeWeight;
             }
-            //printMatrixArray(matrix, noOfVertices);
             traverseNumbers(numbersLine, noOfVertices-1, noOfVertices-1, matrix);
-            std::cout<<"minimum Length:"<<minimumPathLength<<std::endl;
+            std::cout<<minimumPathLength<<std::endl;
             fileOut<<minimumPathLength<<std::endl;
             delete[] matrix;
             delete[] numbersLine;
